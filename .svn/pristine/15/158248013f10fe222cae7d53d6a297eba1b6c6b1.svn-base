@@ -1,0 +1,148 @@
+import React, { useState, useEffect } from 'react';
+import { LoginManager, AccessToken } from "react-native-fbsdk";
+import database from '@react-native-firebase/database';
+import { StyleSheet, View, Image, Text, Button, ScrollView } from 'react-native';
+import MyHeader from "../components/MyHeader";
+import { connect } from "react-redux";
+import {  facebook_login } from "../reduxConfig/action";
+
+function Card(props) {
+  return (
+    <View style={styles.app}>
+      <View style={styles.card}>
+        <View style={styles.View1}>
+          <View style={styles.col1}>
+            <View style={styles.col1_1}>
+              <Text style={styles.col1_text}>{props.type1}</Text>
+            </View>
+            <View style={styles.col1_2}>
+              <Text style={styles.col2_text}>{props.type2}</Text>
+            </View>
+          </View>
+          <View style={styles.col2}>
+            <View style={styles.col2_1}>
+              <Text style={styles.col2_1_text}>{props.name}</Text>
+            </View>
+            <View style={styles.col2_2}>
+              <Text style={styles.col2_2_text}>{props.M} - {props.KM} Km - {props.hrs} hrs</Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  )
+}
+
+function Blood_Request(props) {
+  function BR() {
+    props.navigation.navigate("BR_form")
+  }
+  return (
+    <View style={styles.container}>
+      <MyHeader title="Blood Request" />
+      <ScrollView>
+        <Card type1="Urgent" type2="B+" name="Mudassir Mukhtar" M="9" KM={28} hrs={12} />
+        <Card type1="Urgent" type2="B+" name="Mudassir Mukhtar" M="9" KM={28} hrs={12} />
+        <Card type1="Urgent" type2="B+" name="Mudassir Mukhtar" M="9" KM={28} hrs={12} />
+        <Card type1="Urgent" type2="B+" name="Mudassir Mukhtar" M="9" KM={28} hrs={12} />
+        <Card type1="Urgent" type2="B+" name="Mudassir Mukhtar" M="9" KM={28} hrs={12} />
+      </ScrollView>
+      <Button onPress={()=>props.navigation.navigate("BR_form")} title="Sent Blood Request" />
+
+    </View>
+  );
+}
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#ecf0f1",
+  },
+  text: {
+    justifyContent: 'center',
+    color: 'white',
+    alignContent: "center",
+    marginLeft: 20,
+    fontWeight: "bold"
+  },
+  // // // // // card
+  View1: {
+    flex: 1,
+    margin: 15,
+    flexDirection: 'row',
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  col1: {
+    flex: 1,
+    backgroundColor: "black",
+    borderRadius: 16,
+  },
+  col1_1: {
+    flex: 1,
+  },
+  col1_text: {
+    color: 'white',
+    textAlign: "center",
+    fontWeight: "bold"
+  },
+  col1_2: {
+    flex: 4,
+    backgroundColor: "#DE2C2C",
+    borderRadius: 16,
+  },
+  col2_text: {
+    marginTop: 14,
+    color: 'white',
+    textAlign: "center",
+    fontSize: 32,
+    fontWeight: "bold"
+  },
+  col2: {
+    flex: 3,
+    marginLeft: 5,
+  },
+  col2_1: {
+    flex: 1,
+  },
+  col2_1_text: {
+    textAlign: "center",
+    fontSize: 22,
+    fontWeight: "bold",
+    marginTop: 10,
+  },
+  col2_2: {
+    flex: 1.2,
+  },
+  col2_2_text: {
+    textAlign: "center",
+    fontSize: 16,
+    marginTop: 10,
+  },
+  card: {
+    backgroundColor: "white",
+    margin: 13,
+    marginBottom: 0,
+    width: 366,
+    height: 123,
+    borderRadius: 16,
+  }
+})
+
+const mapStateToProps = (state) => {
+  const { name } = state;
+  const { counter } = state;
+  // console.log(name,counter)
+  return {
+    name,
+    counter,
+  }
+}
+const mapDispatchToProp = (dispatch) => {
+  return {
+    inCerment: () => dispatch(InCerment()),
+    facebook_login: () => dispatch(facebook_login()),
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProp)(Blood_Request);
