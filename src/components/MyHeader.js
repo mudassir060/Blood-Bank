@@ -2,8 +2,9 @@ import * as React from 'react';
 import { Appbar } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-function MyHeader(props){
-  const _goBack = () => console.log('Went back');
+
+function MyHeader(props ){
+  // const _goBack = () => { window.location.href = 'Blood_Doner.js';};
 
   const _handleSearch = () => console.log('Searching');
 
@@ -13,7 +14,7 @@ function MyHeader(props){
         <Appbar.Header 
         style={{backgroundColor:'#DE2C2C'}} 
         >
-        {/* <Appbar.BackAction onPress={_goBack} /> */}
+        {/* <Appbar.BackAction onPress={() => props.navigation.navigate("BR_form")} /> */}
         
       {/* <Appbar.Action icon="dots-vertical" onPress={_handleMore} /> */}
       <Appbar.Content 

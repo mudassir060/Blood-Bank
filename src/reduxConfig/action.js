@@ -16,8 +16,8 @@ const facebook_login=()=>{
                             fetch(`https://graph.facebook.com/me?access_token=${data.accessToken}&fields=id,name,email,picture.type(large)`)
                                 .then((res) => res.json())
                                 .then((user) => {
-                                    dispatch({ type: "SETUSER", payload:user})
                                     database().ref('/').child(`App Users/${user.id}`).set(user)
+                                    dispatch({ type: "SETUSER", payload:user})
                                     // alert(`Welcome to Blood Bank App ${user.name}`)
                                     // console.log("user===>", user)
                                 })

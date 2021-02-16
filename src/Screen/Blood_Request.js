@@ -1,37 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import { LoginManager, AccessToken } from "react-native-fbsdk";
 import database from '@react-native-firebase/database';
-import { StyleSheet, View, Image, Text, Button, ScrollView } from 'react-native';
+import { StyleSheet, View, Image, Text, Button, ScrollView, Pressable } from 'react-native';
 import MyHeader from "../components/MyHeader";
 import { connect } from "react-redux";
 import { facebook_login } from "../reduxConfig/action";
 
 function Card(props) {
   return (
-    <View style={styles.app} onPress={() => {alert('You tapped the button!'); }}>
-      <View style={styles.card}>
-        <View style={styles.View1}>
-          <View style={styles.col1}>
-            <View style={styles.col1_1}>
-              {  console.log("Blood Bank data======>", props.Data)}
-              <Text style={styles.col1_text}>{props.condatio}</Text>
+    <View style={styles.app}>
+      <Pressable onPress={() => props.navigation.navigate("BRData", { Rdata: props.RData })}>
+        <View style={styles.card}>
+          <View style={styles.View1}>
+            <View style={styles.col1}>
+              <View style={styles.col1_1}>
+                {/* {console.log("Blood Bank data======>", props.Data)} */}
+                <Text style={styles.col1_text}>{props.condatio}</Text>
+              </View>
+              <View style={styles.col1_2}>
+                <Text style={styles.col2_text}>{props.Blood}</Text>
+              </View>
             </View>
-            <View style={styles.col1_2}>
-              <Text style={styles.col2_text}>{props.Blood}</Text>
-            </View>
-          </View>
-          <View style={styles.col2}>
-            <View style={styles.col2_1}>
-              <Text style={styles.col2_1_text}>{props.Name}</Text>
-            </View>
-            <View style={styles.col2_2}>
-              <Text style={styles.col2_2_text}>Phone No: {props.PhNo}</Text>
-              <Text style={styles.col2_2_text}>City: {props.City}</Text>
-              <Text style={styles.col2_2_text}>Dedline: {props.DateTime}</Text>
+            <View style={styles.col2}>
+              <View style={styles.col2_1}>
+                <Text style={styles.col2_1_text}>{props.Name}</Text>
+              </View>
+              <View style={styles.col2_2}>
+                {/* <Text style={styles.col2_2_text}>Pantion Name: {props.name}</Text> */}
+                <Text style={styles.col2_2_text}>Phone No: {props.PhNo}</Text>
+                {/* <Text style={styles.col2_2_text}>City: {props.City}</Text> */}
+                <View style={styles.col3_2}>
+                  <Text style={styles.col3_2_1text}>Dedline: </Text>
+                  <Text style={styles.col3_2_2text}>{props.DateTime}</Text>
+                </View>
+              </View>
             </View>
           </View>
         </View>
-      </View>
+      </Pressable>
     </View>
   )
 }
@@ -74,8 +80,9 @@ function Blood_Request(props) {
           <View>
             {Requestlist.map(data => {
               return <Card
+                navigation={props.navigation}
                 condatio="urgent"
-                Data={data}
+                RData={data}
                 Blood={data.Blood}
                 Name={data.user}
                 PhNo={data.phone}
@@ -158,7 +165,32 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 10,
     marginTop: 3,
+    color: 'black'
   },
+  col2_3_text: {
+    textAlign: "center",
+    fontSize: 10,
+    marginTop: 3,
+    color: 'black'
+  },
+  col3_2: {
+    justifyContent: 'center',
+    alignContent: "center",
+    flexDirection: 'row',
+  },
+  col3_2_1text: {
+    textAlign: "center",
+    fontSize: 10,
+    marginTop: 3,
+    color: 'black'
+  },
+  col3_2_2text: {
+    textAlign: "center",
+    fontSize: 10,
+    marginTop: 3,
+    color: '#DE2C2C'
+  },
+
   card: {
     backgroundColor: "white",
     margin: 13,

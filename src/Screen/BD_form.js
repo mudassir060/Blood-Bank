@@ -5,7 +5,6 @@ import MyHeader from "../components/MyHeader";
 import { connect } from "react-redux";
 import { InCerment, facebook_login } from "../reduxConfig/action";
 import { TextInput } from 'react-native-paper';
-import DatePicker from 'react-native-date-picker'
 
 function BR_form(props) {
     const [Blood, setBlood] = React.useState('');
@@ -18,6 +17,8 @@ function BR_form(props) {
     const [data, setdata] = useState({})
 
     function Donate_Blood(props) {
+        // props.navigation.goBack()
+
         database().ref('/').child(`Blood Doner List/${user.id}`).set({
             user: user.name,
             Profile: user.picture.data.url,
@@ -28,8 +29,12 @@ function BR_form(props) {
             gander: gander,
             age: age,
         })
-        alert("Your Blood Donate Successfully")
-
+        // var sms = "https://http-api.d7networks.com/send?username=lfwn7304&password=hmQPx0lW&dlr-method=POST&dlr-url=https://4ba60af1.ngrok.io/receive&dlr=yes&dlr-level=3&from=smsinfo&content=Your blood is donet sucesfully Your Blood is "+Blood+" &to="+phone
+        // fetch(sms).then(res=>{
+        //     if(res.ok){
+        //         alert("Your Blood Donate Successfully")
+        //     }else{alert("error Successfully")}
+        // })
         // props.navigation.navigate("Blood_Doner")
     }
     const [btnC1, setbtnC1] = React.useState("");
@@ -140,6 +145,7 @@ function BR_form(props) {
     // }, [Blood]); // Only re-run the effect if count changes
     return (
         <View style={styles.container}>
+                 {/* <Button onPress={() => props.navigation.goBack()} title="Donte Blood" /> */}
             <ScrollView>
                 {/* {date.toUTCString()} */}
                 <MyHeader title="Donate Your Blood" />
@@ -220,7 +226,9 @@ function BR_form(props) {
                     </View>
                 </View>
 
-                <Button onPress={Donate_Blood} title="Donate Your Blood" />
+                <Button onPress={Donate_Blood}
+                // onPress={() => props.navigation.goBack()}
+                 title="Donate Your Blood" />
             </ScrollView>
         </View>
     );
